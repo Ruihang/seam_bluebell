@@ -13,7 +13,6 @@
 			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-
 	<dependencies>
 		<!-- JBoss Seam minimal -->
 		<dependency>
@@ -147,6 +146,13 @@
     <version>2.3.2.Final</version>
 </dependency>
 
+        <dependency>
+            <groupId>com.github.jsimone</groupId>
+            <artifactId>webapp-runner</artifactId>
+            <version>8.5.34.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
 	</dependencies>
 	
 	
@@ -164,7 +170,7 @@
                             <artifactItem>
                                 <groupId>com.github.jsimone</groupId>
                                 <artifactId>webapp-runner</artifactId>
-                                <version>8.5.23</version>
+                                <version>8.5.34.1</version>
                                 <destFileName>webapp-runner.jar</destFileName>
                             </artifactItem>
                         </artifactItems>
@@ -173,8 +179,6 @@
             </executions>
         </plugin>
     </plugins>
-</build>
-	
-	
+	</build>
 </project>
 
