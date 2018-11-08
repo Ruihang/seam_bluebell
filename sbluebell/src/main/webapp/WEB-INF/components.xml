@@ -36,9 +36,9 @@
 	<!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
 	<web:hot-deploy-filter url-pattern="*.seam" />
 
-	<!-- <persistence:entity-manager-factory name="entityManagerFactory" persistence-unit-name="transacoes-online"/> 
+	<persistence:entity-manager-factory name="entityManagerFactory" persistence-unit-name="transacoes-online"/> 
 		<persistence:managed-persistence-context name="entityManager" auto-create="true" 
-		entity-manager-factory="#{entityManagerFactory}"/> -->
+		entity-manager-factory="#{entityManagerFactory}"/>
 
 	<transaction:no-transaction />
 
