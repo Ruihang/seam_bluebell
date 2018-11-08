@@ -7,10 +7,10 @@
    <local-tx-datasource>
       <jndi-name>seam_basicDatasource</jndi-name>
       <use-java-context>true</use-java-context>
-      <connection-url>jdbc:hsqldb:MyDB</connection-url>
+      <connection-url>${JDBC_DATABASE_URL}</connection-url>
       <driver-class>org.hsqldb.jdbcDriver</driver-class>
-      <user-name>sa</user-name>
-      <password></password>
+      <user-name>${JDBC_DATABASE_USERNAME}</user-name>
+      <password>${JDBC_DATABASE_PASSWORD}</password>
    </local-tx-datasource>
     
 </datasources>
