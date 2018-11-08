@@ -38,7 +38,7 @@
 
 
 
-    <transaction:entity-transaction entity-manager="#{entityManager}"/>
+    <!-- <transaction:entity-transaction entity-manager="#{entityManager}"/> -->
 
     <persistence:entity-manager-factory name="seamBasicPU"/>
     
