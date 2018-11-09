@@ -1,103 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.com/products/seam/components"
-	xmlns:core="http://jboss.com/products/seam/core" xmlns:persistence="http://jboss.com/products/seam/persistence"
-	xmlns:drools="http://jboss.com/products/seam/drools" xmlns:bpm="http://jboss.com/products/seam/bpm"
-	xmlns:security="http://jboss.com/products/seam/security" xmlns:mail="http://jboss.com/products/seam/mail"
-	xmlns:resteasy="http://jboss.com/products/seam/resteasy" xmlns:web="http://jboss.com/products/seam/web"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:transaction="http://jboss.com/products/seam/transaction"
-	xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
-                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd
-                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.2.xsd
-                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.2.xsd
+            xmlns:core="http://jboss.com/products/seam/core"
+						xmlns:async="http://jboss.com/products/seam/async"
+            xmlns:persistence="http://jboss.com/products/seam/persistence"
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+            xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:theme="http://jboss.com/products/seam/theme"
+            xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:web="http://jboss.com/products/seam/web"
+            xmlns:resteasy="http://jboss.com/products/seam/resteasy"
+            xsi:schemaLocation=
+                "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd 
+                 http://jboss.com/products/seam/async http://jboss.com/products/seam/async-2.2.xsd   	
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd 
+                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd 
                  http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
+                 http://jboss.com/products/seam/theme http://jboss.com/products/seam/theme-2.2.xsd
                  http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd
                  http://jboss.com/products/seam/resteasy http://jboss.com/products/seam/resteasy-2.2.xsd
                  http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.2.xsd
-                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd
                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd">
 
-	<web:rewrite-filter view-mapping="*.seam" />
+    <core:init debug="true"/>
 
-	<core:init debug="false" transaction-management-enabled="false" />
+    <core:manager conversation-timeout="3800000"
+                  concurrent-request-timeout="2500000"
+                  conversation-id-parameter="cid"/>
+                  
+   <core:resource-loader>
+        <core:bundle-names>
+            <value>bundles/messages</value>
+            <value>bundles/messages-main</value>
+            <value>bundles/messages-general</value>
+            <value>bundles/messages-stock</value>
+            <value>bundles/messages-admin</value>
+        </core:bundle-names>
+    </core:resource-loader>
 
-<!-- FIXME: Resposta padrão segue accept header do request e se for informada extensão, segue-a -->
-<!-- 	<resteasy:application> -->
-<!-- 		<resteasy:media-type-mappings> -->
-<!-- 			<key>xml</key><value>application/xml</value> -->
-<!-- 			<key>json</key><value>application/json</value> -->
-<!-- 		</resteasy:media-type-mappings> -->
-<!-- 	</resteasy:application> -->
+    <theme:theme-selector cookie-enabled="true">
+        <theme:available-themes>
+            <value>classic_theme</value>
+            <value>glassX_theme</value>
+            <value>darkBlue_theme</value>
+            <value>darkX_theme</value>
+            <value>ruby_theme</value>
+        </theme:available-themes>
+    </theme:theme-selector>
 
-	<core:manager concurrent-request-timeout="500"
-		conversation-timeout="1800000" conversation-id-parameter="cid"
-		parent-conversation-id-parameter="pid" />
+    <transaction:entity-transaction entity-manager="#{entityManager}"/>
 
-	<!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
-	<web:hot-deploy-filter url-pattern="*.seam" />
-
-
-
-    <!-- <transaction:entity-transaction entity-manager="#{entityManager}"/> -->
-
-    <persistence:entity-manager-factory name="seamBasicPU"/>
+    <persistence:entity-manager-factory name="appContextPU"/>
     
     <persistence:managed-persistence-context name="entityManager"
                                auto-create="true" 
-                    entity-manager-factory="#{seamBasicPU}"/>
+                    entity-manager-factory="#{appContextPU}"/>
 
+    <security:identity authenticate-method="#{authenticator.authenticate}"/>  
 
-
-	<!-- <persistence:entity-manager-factory name="entityManagerFactory" persistence-unit-name="transacoes-online"/> 
-		<persistence:managed-persistence-context name="entityManager" auto-create="true" 
-		entity-manager-factory="#{entityManagerFactory}"/> -->
-
-	<transaction:no-transaction />
-
-	<!-- <security:identity authenticate-method="#{autenticador.autenticar}" -->
-	<!-- remember-me="false" /> -->
-
-	<!-- <core:init debug="true" jndi-pattern="@jndiPattern@"/> -->
-
-	<!-- <core:manager concurrent-request-timeout="500" -->
-	<!-- conversation-timeout="120000" -->
-	<!-- conversation-id-parameter="cid" -->
-	<!-- parent-conversation-id-parameter="pid"/> -->
-
-	<!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
-	<!-- <web:hot-deploy-filter url-pattern="*.seam"/> -->
-
-	<!-- If you are still using JBoss 4, uncomment this to have your PU started -->
-	<!-- <persistence:entity-manager-factory name="entityManagerFactory" -->
-	<!-- persistence-unit-name="seam_basic"/> -->
-	<!-- If you are still using JBoss 4, uncomment this to have the entityManagerFactory 
-		ysed -->
-	<!-- <persistence:managed-persistence-context name="entityManager" auto-create="true" -->
-	<!-- entity-manager-factory="#{entityManagerFactory}"/> -->
-
-	<persistence:managed-persistence-context name="entityManager" auto-create="true" />
-	<!-- <persistence-unit-jndi-name="java:/seam_basicEntityManagerFactory" /> -->
-
-	<!-- <drools:rule-base name="securityRules"> -->
-	<!-- <drools:rule-files><value>/security.drl</value></drools:rule-files> -->
-	<!-- </drools:rule-base> -->
-
-	<!-- <security:rule-based-permission-resolver security-rules="#{securityRules}"/> -->
-
-	<!-- <security:identity authenticate-method="#{authenticator.authenticate}" 
-		remember-me="true"/> -->
-
-	<!-- <event type="org.jboss.seam.security.notLoggedIn"> -->
-	<!-- <action execute="#{redirect.captureCurrentView}"/> -->
-	<!-- </event> -->
-	<!-- <event type="org.jboss.seam.security.loginSuccessful"> -->
-	<!-- <action execute="#{redirect.returnToCapturedView}"/> -->
-	<!-- </event> -->
-
-	<!-- <mail:mail-session host="localhost" port="25"/> -->
-
-	<!-- For use with jBPM pageflow or process management -->
-	<!-- <bpm:jbpm> <bpm:process-definitions></bpm:process-definitions> <bpm:pageflow-definitions></bpm:pageflow-definitions> 
-		</bpm:jbpm> -->
-
-</components>
+	<async:quartz-dispatcher/>  	 
+	
+	<component class="org.jboss.seam.web.MultipartFilter">
+	  <property name="createTempFiles">true</property>
+	  <property name="maxRequestSize">8000000</property>
+	  <property name="urlPattern">*.seam</property>
+  </component>
+ </components>
