@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.com/products/seam/components"
             xmlns:core="http://jboss.com/products/seam/core"
-						xmlns:async="http://jboss.com/products/seam/async"
             xmlns:persistence="http://jboss.com/products/seam/persistence"
             xmlns:transaction="http://jboss.com/products/seam/transaction"
             xmlns:security="http://jboss.com/products/seam/security"
@@ -12,7 +11,6 @@
             xmlns:resteasy="http://jboss.com/products/seam/resteasy"
             xsi:schemaLocation=
                 "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd 
-                 http://jboss.com/products/seam/async http://jboss.com/products/seam/async-2.2.xsd   	
                  http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd 
                  http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd 
                  http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
@@ -58,8 +56,6 @@
 
     <security:identity authenticate-method="#{authenticator.authenticate}"/>  
 
-	<async:quartz-dispatcher/>  	 
-	
 	<component class="org.jboss.seam.web.MultipartFilter">
 	  <property name="createTempFiles">true</property>
 	  <property name="maxRequestSize">8000000</property>
