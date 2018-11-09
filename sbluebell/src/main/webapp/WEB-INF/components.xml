@@ -26,26 +26,6 @@
                   concurrent-request-timeout="2500000"
                   conversation-id-parameter="cid"/>
                   
-   <core:resource-loader>
-        <core:bundle-names>
-            <value>bundles/messages</value>
-            <value>bundles/messages-main</value>
-            <value>bundles/messages-general</value>
-            <value>bundles/messages-stock</value>
-            <value>bundles/messages-admin</value>
-        </core:bundle-names>
-    </core:resource-loader>
-
-    <theme:theme-selector cookie-enabled="true">
-        <theme:available-themes>
-            <value>classic_theme</value>
-            <value>glassX_theme</value>
-            <value>darkBlue_theme</value>
-            <value>darkX_theme</value>
-            <value>ruby_theme</value>
-        </theme:available-themes>
-    </theme:theme-selector>
-
     <transaction:entity-transaction entity-manager="#{entityManager}"/>
 
     <persistence:entity-manager-factory name="appContextPU"/>
